@@ -1,5 +1,8 @@
 package com.example.demo.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,6 +10,8 @@ import java.math.BigDecimal;
 
 
 @Entity
+@Data
+@AllArgsConstructor
 public class Article {
 
     @Id

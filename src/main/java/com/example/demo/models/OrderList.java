@@ -1,11 +1,16 @@
 package com.example.demo.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@Data
+@AllArgsConstructor
 public class OrderList {
 
     @Id
