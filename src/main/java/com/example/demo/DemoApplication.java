@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 @Configuration
 @EnableAutoConfiguration(exclude = {
-        DataSourceAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class,
         SecurityAutoConfiguration.class
 })
 public class DemoApplication extends SpringBootServletInitializer {
