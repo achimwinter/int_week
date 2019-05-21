@@ -1,9 +1,11 @@
 package com.example.demo.repositories;
 
-import com.example.demo.models.User;
+import com.example.demo.models.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface OrderListRepository extends JpaRepository<User, Long> {
+public interface OrderListRepository extends JpaRepository<List<Order>, Long> {
 }

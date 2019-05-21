@@ -1,7 +1,9 @@
 package com.example.demo.models;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,8 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Article {
 
     @Id

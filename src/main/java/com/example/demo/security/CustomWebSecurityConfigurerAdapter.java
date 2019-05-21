@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
@@ -16,23 +17,32 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+    BasicAuthenticationEntryPoint basicAuthenticationEntryPoint;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("user1").password(passwordEncoder().encode("user1Pass"))
-                .authorities("ROLE_USER");
+                .authorities("DEVELOPER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated()
+        http
+                .authorizeRequests()
+                .antMatchers("/cart").authenticated()
                 .and()
+                .formLogin()
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
+                .and()
+                .csrf()
+                .disable()
                 .httpBasic()
-                .authenticationEntryPoint(authenticationEntryPoint);
+                .authenticationEntryPoint(basicAuthenticationEntryPoint);
+
 
         http.addFilterAfter(new CustomFilter(),
                 BasicAuthenticationFilter.class);
