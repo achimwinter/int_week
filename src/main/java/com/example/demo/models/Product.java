@@ -37,10 +37,6 @@ public class Product {
 
         return 4;
     }
-
-
-        return 4;
-    }
     // standard constructors
 
     // standard getters and setters
