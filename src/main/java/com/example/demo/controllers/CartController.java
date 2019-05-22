@@ -17,11 +17,20 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/cart1", method = RequestMethod.GET)
     public String getCart(User user, Model model) {
         model.addAttribute("products", cartService.getActiveOrderList(user));
+        // TODO:: Place your HTML Filename here
         return "test";
     }
+
+    @RequestMapping(value = "/orderlist", method = RequestMethod.GET)
+    public String getCompletedOrders(User user, Model model) {
+        model.addAttribute("completedOrders", cartService.getCompletedOrders(user));
+        // TODO:: Place your HTML Filename here
+        return "";
+    }
+
 
     @RequestMapping(method = RequestMethod.PUT)
     public Object addProduct() {
