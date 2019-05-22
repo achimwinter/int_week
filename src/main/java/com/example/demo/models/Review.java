@@ -3,6 +3,8 @@ package com.example.demo.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Data
@@ -32,4 +34,10 @@ public class Review {
     private java.util.Date creationDate;
 
     private Long stars; // from 1-5 stars
+
+    public String getCreationDateAsString(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String strDate = dateFormat.format(creationDate);
+        return strDate;
+    }
 }
