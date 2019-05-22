@@ -3,12 +3,15 @@ package com.example.demo.controllers;
 import com.example.demo.models.OrderList;
 import com.example.demo.models.Product;
 import com.example.demo.services.ProductService;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -20,14 +23,20 @@ public class WelcomeController {
 //    private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
 
     @GetMapping("/")
-    public String main(Model model) {
-//        model.addAttribute("tasks", tasks);
-//        model.addAttribute("products", articleRepository.findAll());
+    public RedirectView main(Model model) {
+        return new RedirectView("products");
+    }
 
+
+    @GetMapping("/products")
+    public String getProducts(Model model) {
         ProductService productService = new ProductService();
         List<Product> allProducts = productService.list();
+        Product product1 = new Product();
+        Product product2 = new Product();
+        List<Product> proodlist = Arrays.asList(product1, product2);
 
-        model.addAttribute("prods", allProducts);
+        model.addAttribute("prods", proodlist);
 
         return "shop"; //view
     }
