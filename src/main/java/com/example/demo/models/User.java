@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +13,9 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -22,18 +24,6 @@ public class User {
     private String username;
     private String password;
     private String email;
-//    private String title;
-//    private String companyName;
-//    private String companyAddress;
-//    private String city;
-//    private String job;
-//    private String phoneNumber;
-//    private String email;
-//    private String country;
-//    private String zip;
-//    private Boolean superuser;
-//    private Boolean delsoft; // dsgvo???
-//    private String note;
 
     // standard constructors
 

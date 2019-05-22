@@ -1,22 +1,27 @@
 package com.example.demo.controllers;
 
-import com.example.demo.services.UserService;
+import com.example.demo.models.User;
+import com.example.demo.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
-    UserService cartService;
+    private CartService cartService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getCart() {
-        return "string";
+    public String getCart(Model model) {
+        model.addAttribute("products", cartService.getActiveOrders(
+                User.builder().email("test@test.de").username("abc").password("safe").build())
+        );
+        return "test";
     }
 
     @RequestMapping(method = RequestMethod.PUT)

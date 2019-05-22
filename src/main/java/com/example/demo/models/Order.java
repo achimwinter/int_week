@@ -23,9 +23,8 @@ public class Order {
     private OrderList orderList;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id", nullable = false)
-    private Article article;
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     private Long amount;
-    private Boolean checkout;
 }

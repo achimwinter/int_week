@@ -1,10 +1,9 @@
 package com.example.demo.webcontrollers;
 
-import com.example.demo.models.Article;
-import com.example.demo.repositories.ArticleRepository;
-import com.example.demo.services.ArticleService;
+import com.example.demo.models.Product;
+import com.example.demo.repositories.ProductRepository;
+import com.example.demo.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +16,17 @@ import java.util.List;
 public class WelcomeController {
 
     @Autowired
-    ArticleRepository articleRepository;
+    ProductRepository productRepository;
 
     private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
 
     @GetMapping("/")
     public String main(Model model) {
         model.addAttribute("tasks", tasks);
-        model.addAttribute("products", articleRepository.findAll());
+        model.addAttribute("products", productRepository.findAll());
 
-        ArticleService articleService = new ArticleService();
-        List<Article> allProducts = articleService.list();
+        ProductService productService = new ProductService();
+        List<Product> allProducts = productService.list();
 
         model.addAttribute("prods", allProducts);
 
