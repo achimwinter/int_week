@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-class OrderList {
+public class OrderList {
 
     @Id
     @GeneratedValue
