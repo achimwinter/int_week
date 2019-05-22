@@ -16,7 +16,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<Product> list() {
-        return Collections.emptyList();
+        return productRepository.findAll();
     }
 
     public List<Product> getProductsForCategory(Category category){

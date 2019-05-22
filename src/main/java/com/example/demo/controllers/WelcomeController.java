@@ -30,26 +30,11 @@ public class WelcomeController {
     @Autowired
     CategoryService categoryService;
 
-//    private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
 
     @GetMapping("/")
     public RedirectView main(Model model) {
         return new RedirectView("products");
     }
-
-
-//    @GetMapping("/")
-//    public String getProducts1(Model model) {
-//        ProductService productService = new ProductService();
-//        List<Product> allProducts = productService.list();
-//        Product product1 = new Product();
-//        Product product2 = new Product();
-//        List<Product> proodlist = Arrays.asList(product1, product2);
-//
-//        model.addAttribute("prods", proodlist);
-//
-//        return "shop";
-//    }
 
 
     @GetMapping("/products")
@@ -64,13 +49,13 @@ public class WelcomeController {
 
     @GetMapping("/products/{category}")
     public String getCategory(Model model, @PathVariable String category) {
-        //todo get products for given category
-        Product product1 = new Product();
-        Product product2 = new Product();
-        List<Product> categoryProducts = Arrays.asList(product1, product2);
+        Category cat = categoryService.getCategory(category);
+        List<Product> categoryProducts = productService.getProductsForCategory(cat);
         model.addAttribute("prods", categoryProducts);
+        List<Category> allCategories = categoryService.getCategories();
+        model.addAttribute("categories", allCategories);
 
-        return "category";
+        return "shop";
     }
 
 
