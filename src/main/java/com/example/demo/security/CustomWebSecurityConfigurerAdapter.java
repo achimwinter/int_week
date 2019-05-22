@@ -38,10 +38,15 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
                 .logout()
                 .permitAll()
                 .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
+                .and()
                 .csrf()
                 .disable()
                 .httpBasic()
                 .authenticationEntryPoint(basicAuthenticationEntryPoint);
+
 
 
         http.addFilterAfter(new CustomFilter(),
