@@ -5,8 +5,10 @@ import com.example.demo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrderListRepository extends JpaRepository<OrderList, Long> {
 
-    OrderList getOrderListByUserAndCheckoutIs(User user, Boolean checkout);
+    List<OrderList> getOrderListByUserAndCheckoutIs(User user, Boolean checkout);
 }
