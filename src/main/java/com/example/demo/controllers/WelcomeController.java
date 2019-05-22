@@ -68,10 +68,13 @@ public class WelcomeController {
     }
 
     @GetMapping("/article/{id}")
-    public String getSingleArticle(Model model, @PathVariable String id) {
+    public String getSingleArticle(Model model, @PathVariable long id) {
         // todo: get single article and set into model attribute article
-        Product testarticle = new Product();
-        model.addAttribute("article", testarticle);
+        Product article = productService.getByID(id);
+        model.addAttribute("article", article);
+        List<Category> allCategories = categoryService.getCategories();
+        model.addAttribute("categories", allCategories);
+
         return "article";
     }
 
