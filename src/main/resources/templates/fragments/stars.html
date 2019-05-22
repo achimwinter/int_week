@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org">
+
+
+<div th:fragment="stars (score)">
+    <td th:switch="${score}">
+        <small class="text-muted" th:case="1">
+            &#9733; &#9734; &#9734; &#9734; &#9734;
+        </small>
+        <small class="text-muted" th:case="2">
+            &#9733; &#9733; &#9734; &#9734; &#9734;
+        </small>
+        <small class="text-muted" th:case="3">
+            &#9733; &#9733; &#9733; &#9734; &#9734;
+        </small>
+        <small class="text-muted" th:case="4">
+            &#9733; &#9733; &#9733; &#9733; &#9734;
+        </small>
+        <small class="text-muted" th:case="5">
+            &#9733; &#9733; &#9733; &#9733; &#9733;
+        </small>
+
+    </td>
+</div>
