@@ -17,10 +17,8 @@ public class CartController {
     private CartService cartService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getCart(Model model) {
-        model.addAttribute("products", cartService.getActiveOrders(
-                User.builder().email("test@test.de").username("abc").password("safe").build())
-        );
+    public String getCart(User user, Model model) {
+        model.addAttribute("products", cartService.getActiveOrderList(user));
         return "test";
     }
 

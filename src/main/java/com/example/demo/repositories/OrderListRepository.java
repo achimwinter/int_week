@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderListRepository extends JpaRepository<OrderList, Long> {
 
-    OrderList getOrderListByUser(User user);
+    OrderList getOrderListByUserAndCheckoutIs(User user, Boolean checkout);
 }
