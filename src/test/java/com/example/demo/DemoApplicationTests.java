@@ -2,6 +2,8 @@ package com.example.demo;
 
 import com.example.demo.models.Category;
 import com.example.demo.models.Product;
+import com.example.demo.models.Review;
+import com.example.demo.models.User;
 import com.example.demo.repositories.*;
 import lombok.val;
 import lombok.var;
@@ -16,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -37,6 +40,9 @@ public class DemoApplicationTests {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @Test
     public void contextLoads() {
@@ -79,9 +85,39 @@ public class DemoApplicationTests {
         System.out.println(p2);
         System.out.println(productRepository.count());
 
+        val u1 = userRepository.save(User.builder()
+                .email("john.doe@example.com")
+                .password("hunter2")
+                .username("john_doe")
+                .build());
+
+        val r1 = reviewRepository.save(Review.builder()
+                .author(u1)
+                .creationDate(new Date())
+                .product(p1)
+                .content("Awesome Product! \n11/10! would buy again!!!!!111")
+                .stars(5L)
+                .build());
+
+        val r2 = reviewRepository.save(Review.builder()
+                .author(u1)
+                .creationDate(new Date())
+                .product(p1)
+                .content("It's ok i guess.")
+                .stars(2L)
+                .build());
+
+        val r3 = reviewRepository.save(Review.builder()
+                .author(u1)
+                .creationDate(new Date())
+                .product(p1)
+                .content("Now I can start horsing around!")
+                .stars(3L)
+                .build());
 
         categoryRepository.flush();
         productRepository.flush();
+        reviewRepository.flush();
 
     }
 

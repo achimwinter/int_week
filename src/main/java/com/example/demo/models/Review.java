@@ -30,4 +30,6 @@ public class Review {
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date creationDate;
+
+    private Long stars; // from 1-5 stars
 }
