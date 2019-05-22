@@ -31,9 +31,13 @@ public class Product {
             fetch = FetchType.LAZY,
             mappedBy = "product")
     private List<Review> reviews;
-    // TODO Funktion als Durchschnittsscore
-    public int getScore() {
+
+    public int getScore(){
         // TODO Funktion als Durchschnittsscore
+
+        return 4;
+    }
+
 
         return 4;
     }
