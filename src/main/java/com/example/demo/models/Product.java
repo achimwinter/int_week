@@ -14,8 +14,8 @@ import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
