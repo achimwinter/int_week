@@ -5,6 +5,7 @@ import com.example.demo.models.OrderList;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.repositories.ProductRepository;
+import com.example.demo.services.CategoryService;
 import com.example.demo.services.ProductService;
 import com.google.common.collect.Lists;
 import lombok.val;
@@ -23,40 +24,40 @@ import java.util.List;
 @Controller
 public class WelcomeController {
 
-//    @Autowired
-//    ProductRepository productRepository;
+    @Autowired
+    ProductService productService;
+
+    @Autowired
+    CategoryService categoryService;
 
 //    private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
 
-//    @GetMapping("/")
-//    public RedirectView main(Model model) {
-//        return new RedirectView("products");
-//    }
-
-
     @GetMapping("/")
-    public String getProducts1(Model model) {
-        ProductService productService = new ProductService();
-        List<Product> allProducts = productService.list();
-        Product product1 = new Product();
-        Product product2 = new Product();
-        List<Product> proodlist = Arrays.asList(product1, product2);
-
-        model.addAttribute("prods", proodlist);
-
-        return "shop";
+    public RedirectView main(Model model) {
+        return new RedirectView("products");
     }
+
+
+//    @GetMapping("/")
+//    public String getProducts1(Model model) {
+//        ProductService productService = new ProductService();
+//        List<Product> allProducts = productService.list();
+//        Product product1 = new Product();
+//        Product product2 = new Product();
+//        List<Product> proodlist = Arrays.asList(product1, product2);
+//
+//        model.addAttribute("prods", proodlist);
+//
+//        return "shop";
+//    }
 
 
     @GetMapping("/products")
     public String getProducts(Model model) {
-        ProductService productService = new ProductService();
         List<Product> allProducts = productService.list();
-        Product product1 = new Product();
-        Product product2 = new Product();
-        List<Product> proodlist = Arrays.asList(product1, product2);
-
-        model.addAttribute("prods", proodlist);
+        model.addAttribute("prods", allProducts);
+        List<Category> allCategories = categoryService.getCategories();
+        model.addAttribute("categories", allCategories);
 
         return "shop";
     }
