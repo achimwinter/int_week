@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<html lang="eng" xmlns:th="http://www.thymeleaf.org">
 
 
 <div th:fragment="stars (score)">
     <td th:switch="${score}">
-        <small th:case="1" class="text-muted">
+        <small class="text-muted" th:case="1">
             &#9733; &#9734; &#9734; &#9734; &#9734;
         </small>
-        <small th:case="2" class="text-muted">
+        <small class="text-muted" th:case="2">
             &#9733; &#9733; &#9734; &#9734; &#9734;
         </small>
-        <small th:case="3" class="text-muted">
+        <small class="text-muted" th:case="3">
             &#9733; &#9733; &#9733; &#9734; &#9734;
         </small>
-        <small th:case="4" class="text-muted">
+        <small class="text-muted" th:case="4">
             &#9733; &#9733; &#9733; &#9733; &#9734;
         </small>
-        <small th:case="5" class="text-muted">
+        <small class="text-muted" th:case="5">
             &#9733; &#9733; &#9733; &#9733; &#9733;
         </small>
 
