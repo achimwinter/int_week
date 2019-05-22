@@ -20,6 +20,6 @@ public class Category {
     @GeneratedValue
     private Long id;
 
+    private String name;
 
-    // TODO mach hier eine Entity draus und Dinge
 }

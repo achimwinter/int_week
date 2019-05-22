@@ -1,12 +1,10 @@
 package com.example.demo.models;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +12,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
+//@ToString(exclude = "reviews")
 public class Product {
 
     @Id
@@ -31,7 +31,7 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "product")
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
 
     public int getScore(){
         // TODO Funktion als Durchschnittsscore
