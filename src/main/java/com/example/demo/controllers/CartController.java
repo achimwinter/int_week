@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/cart1")
+//TODO URL aendern
 public class CartController {
 
     @Autowired
