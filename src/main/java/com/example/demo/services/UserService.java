@@ -25,23 +25,4 @@ public class UserService implements UserDetailsService {
             .map(UserDetailsImpl::new).get();
     }
 }
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    public List<User> list() {
-//        List<User> users = userRepository.findAll();
-//
-//        if (users.isEmpty())
-//            return Collections.emptyList();
-//        return users;
-//    }
-//
-//    public Optional<User> getUser(Long userId) {
-//        return Optional.ofNullable(userRepository.getOne(userId));
-//    }
-//
-//    public void deleteUser(Long userId) {
-//        userRepository.deleteById(userId);
-//    }
-
 
