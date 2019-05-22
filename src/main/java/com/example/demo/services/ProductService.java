@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Category;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,9 @@ public class ProductService {
 
     public List<Product> list() {
         return Collections.emptyList();
+    }
+
+    public List<Product> getProductsForCategory(Category category){
+        return productRepository.getProductsByCategory(category);
     }
 }
