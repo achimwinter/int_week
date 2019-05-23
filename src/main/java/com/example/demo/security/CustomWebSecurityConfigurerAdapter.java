@@ -33,29 +33,27 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/cart").authenticated()
-                .and()
-                .formLogin()
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/")
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin()
-                .and()
-                .csrf()
-                .disable()
-                .httpBasic()
-                .authenticationEntryPoint(basicAuthenticationEntryPoint);
-
-
+            .authorizeRequests()
+            .antMatchers("/cart").authenticated()
+            .and()
+            .formLogin()
+            .permitAll()
+            .and()
+            .logout()
+            .permitAll()
+            .logoutSuccessUrl("/")
+            .and()
+            .headers()
+            .frameOptions()
+            .sameOrigin()
+            .and()
+            .csrf()
+            .disable()
+            .httpBasic()
+            .authenticationEntryPoint(basicAuthenticationEntryPoint);
 
         http.addFilterAfter(new CustomFilter(),
-                BasicAuthenticationFilter.class);
+            BasicAuthenticationFilter.class);
     }
 
     @Bean

@@ -1,12 +1,8 @@
 package com.example.demo.services;
 
 import com.example.demo.models.Category;
-import com.example.demo.models.OrderList;
-import com.example.demo.models.User;
 import com.example.demo.repositories.CategoryRepository;
-import com.example.demo.repositories.OrderListRepository;
-import com.example.demo.repositories.OrderRepository;
-import com.example.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +18,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Category getCategory(String s){
+    public Category getCategory(String s) {
         return categoryRepository.getCategoryByName(s);
     }
 }

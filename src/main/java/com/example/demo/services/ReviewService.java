@@ -31,16 +31,19 @@ public class ReviewService {
         return reviewRepository.getReviewsByAuthor(user);
 
     }
+
     public List<Review> getAllReviews(Product product) {
         return reviewRepository.getReviewsByProduct(product);
     }
+
     public Double getAverageScore(Product product) {
-        return reviewRepository.getReviewsByProduct(product).stream().mapToDouble(x -> (double)x.getStars()).average()
-                .orElse(5.d);
+        return reviewRepository.getReviewsByProduct(product).stream().mapToDouble(x -> (double) x.getStars()).average()
+            .orElse(5.d);
     }
 
-    public void saveReview(Long productId, Long stars, Long userId, String note) throws Exception{
-        Product productToUpdate = this.productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Product not found"));
+    public void saveReview(Long productId, Long stars, Long userId, String note) throws Exception {
+        Product productToUpdate = this.productRepository.findById(productId)
+            .orElseThrow(() -> new NotFoundException("Product not found"));
         User reviewUser = this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
 
         Review review = new Review();

@@ -3,10 +3,10 @@ package com.example.demo.services;
 import com.example.demo.models.Category;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.ProductRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,11 +19,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getProductsForCategory(Category category){
+    public List<Product> getProductsForCategory(Category category) {
         return productRepository.getProductsByCategory(category);
     }
 
-    public Product getByID(Long id){
+    public Product getByID(Long id) {
         return productRepository.getProductById(id);
     }
 }
