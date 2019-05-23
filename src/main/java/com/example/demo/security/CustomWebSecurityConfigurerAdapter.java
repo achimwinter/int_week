@@ -1,5 +1,7 @@
 package com.example.demo.security;
 
+import com.example.demo.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +22,12 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     BasicAuthenticationEntryPoint basicAuthenticationEntryPoint;
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user1").password(passwordEncoder().encode("user1Pass"))
-                .authorities("DEVELOPER");
+    private UserService userService;
+
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService)
+            .passwordEncoder(getPasswordEncoder());
     }
 
     @Override
@@ -37,6 +41,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
                 .and()
                 .logout()
                 .permitAll()
+                .logoutSuccessUrl("/")
                 .and()
                 .headers()
                 .frameOptions()
@@ -56,5 +61,19 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    private PasswordEncoder getPasswordEncoder() {
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence charSequence) {
+                return charSequence.toString();
+            }
+
+            @Override
+            public boolean matches(CharSequence charSequence, String s) {
+                return true;
+            }
+        };
     }
 }
