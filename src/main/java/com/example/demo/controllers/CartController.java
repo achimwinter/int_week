@@ -55,14 +55,21 @@ public class CartController {
 
         Product product = productService.getByID(article);
 
+        OrderList activecart = cartService.getOrCreateOrderList(user);
+        cartService.changeOrder(activecart, product, amount);
+
+        return new RedirectView(request.getHeader("Referer"));
+    }
+
+    @DeleteMapping("/order")
+    public RedirectView deleteInCart(@AuthenticationPrincipal User user, @RequestParam Map<String, String> params, HttpServletRequest request) {
+        Long article = Long.parseLong(params.get("articleid"));
+
+        Product product = productService.getByID(article);
 
         OrderList activecart = cartService.getOrCreateOrderList(user);
-        Order neworder = new Order();
-        neworder.setAmount(amount);
-        neworder.setOrderList(activecart);
-        neworder.setProduct(product);
+        cartService.deleteOrder(activecart, product);
 
-        cartService.saveOrder(neworder);
         return new RedirectView(request.getHeader("Referer"));
     }
 

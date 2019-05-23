@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.models.Order;
+import com.example.demo.models.Product;
 import lombok.val;
 
 import com.example.demo.models.OrderList;
@@ -60,6 +61,29 @@ public class CartService {
     public Order saveOrder(Order lst) {
         orderRepository.save(lst);
         return lst;
+    }
+
+    public Order changeOrder(OrderList orderList, Product product, Long amount){
+        Order order = orderRepository.findOrderByProductAndOrderList(product, orderList);
+        if (order != null){
+            order.setAmount(order.getAmount() + amount);
+        }else {
+            order = new Order();
+            order.setAmount(amount);
+            order.setOrderList(orderList);
+            order.setProduct(product);
+        }
+
+        return saveOrder(order);
+    }
+
+    public boolean deleteOrder(OrderList orderList, Product product){
+        Order order = orderRepository.findOrderByProductAndOrderList(product, orderList);
+        if (order != null){
+            orderRepository.delete(order);
+            return true;
+        }
+        return false;
     }
 
 }
