@@ -63,19 +63,8 @@ public class WelcomeController {
         return "shop";
     }
 
-//    @GetMapping("/products/")
-//    public String getSearchString(Model model, ) {
-//        List<Product> products = productService.search(searchString);
-//        model.addAttribute("prods", products);
-//        List<Category> allCategories = categoryService.getCategories();
-//        model.addAttribute("categories", allCategories);
-//
-//        return "shop";
-//    }
-
     @GetMapping("/cart")
     public String getCart(Model model, @AuthenticationPrincipal User user) {
-
         OrderList cart = cartService.getOrCreateOrderList(user);
         model.addAttribute("cart", cart);
 
@@ -87,6 +76,12 @@ public class WelcomeController {
         model.addAttribute("activeuser", user);
 
         return "profile";
+    }
+
+    @GetMapping("/checkout")
+    public String getCheckout(@AuthenticationPrincipal User user) {
+        cartService.checkout(cartService.getOrCreateOrderList(user));
+        return "checkout";
     }
 
     @GetMapping("/article/{id}")
