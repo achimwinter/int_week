@@ -27,9 +27,6 @@ public class CartService {
     @Autowired
     private OrderListRepository orderListRepository;
 
-    public OrderList getActiveOrderList(User user) {
-        return orderListRepository.getOrderListByUserAndCheckoutIs(user, false).get(0);
-    }
 
     public List<OrderList> getCompletedOrders(User user) {
         return orderListRepository.getOrderListByUserAndCheckoutIs(user, true);
