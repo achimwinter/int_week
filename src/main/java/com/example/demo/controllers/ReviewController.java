@@ -5,11 +5,13 @@ import lombok.Data;
 import com.example.demo.services.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.Map;
 
@@ -21,13 +23,16 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity postReview(@RequestParam Map<String, String> body) throws Exception {
+    public RedirectView postReview(@RequestParam Map<String, String> body, HttpServletRequest request) throws Exception {
         this.reviewService.saveReview(Long.parseLong(body.get("productId")),
             Long.parseLong(body.get("stars")),
             Long.parseLong(body.get("userId")),
             body.get("note"));
 
-        return ResponseEntity.status(201).build();
+        String referer = request.getHeader("Referer");
+        if (referer.isEmpty())
+            return new RedirectView("/");
+        return new RedirectView(referer);
     }
 
 }
