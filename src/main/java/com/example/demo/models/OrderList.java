@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,4 +37,8 @@ public class OrderList {
     private User user;
 
     private Boolean checkout; // TODO muss das hier evtl noch angepasst werden?
+
+    public BigDecimal getTotal(){
+        return orders.stream().map(x->x.getProduct().getPrice()).reduce(BigDecimal::add).orElse(new BigDecimal(0));
+    }
 }
