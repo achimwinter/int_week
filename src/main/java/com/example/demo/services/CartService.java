@@ -70,7 +70,7 @@ public class CartService {
         }
 
         order = saveOrder(order);
-        if(order.getAmount() == 0){
+        if(order.getAmount() <= 0){
             deleteOrder(orderList, product);
             return null;
         }else {
