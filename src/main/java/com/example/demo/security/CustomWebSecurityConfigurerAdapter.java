@@ -27,53 +27,37 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-            .passwordEncoder(getPasswordEncoder());
+            .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/cart").authenticated()
-                .and()
-                .formLogin()
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/")
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin()
-                .and()
-                .csrf()
-                .disable()
-                .httpBasic()
-                .authenticationEntryPoint(basicAuthenticationEntryPoint);
-
-
+            .authorizeRequests()
+            .antMatchers("/cart").authenticated()
+            .and()
+            .formLogin()
+            .permitAll()
+            .and()
+            .logout()
+            .permitAll()
+            .logoutSuccessUrl("/")
+            .and()
+            .headers()
+            .frameOptions()
+            .sameOrigin()
+            .and()
+            .csrf()
+            .disable()
+            .httpBasic()
+            .authenticationEntryPoint(basicAuthenticationEntryPoint);
 
         http.addFilterAfter(new CustomFilter(),
-                BasicAuthenticationFilter.class);
+            BasicAuthenticationFilter.class);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    private PasswordEncoder getPasswordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return true;
-            }
-        };
     }
 }

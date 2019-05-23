@@ -7,6 +7,7 @@ import com.example.demo.repositories.ProductRepository;
 import com.example.demo.specifications.ProductSpecification;
 import lombok.val;
 import lombok.var;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +31,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getProductsForCategory(Category category){
+    public List<Product> getProductsForCategory(Category category) {
         return productRepository.getProductsByCategory(category);
     }
 
-    public Product getByID(Long id){
+    public Product getByID(Long id) {
         return productRepository.getProductById(id);
     }
     /// create Products by saving them without id

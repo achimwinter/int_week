@@ -24,5 +24,9 @@ public class UserService implements UserDetailsService {
         return Optional.ofNullable(optionalUser).orElseThrow(() -> new UsernameNotFoundException("Username Not Found"))
             .map(UserDetailsImpl::new).get();
     }
+
+    public void saveUser(User user) {
+        usersRepository.save(user);
+    }
 }
 

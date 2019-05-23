@@ -1,19 +1,27 @@
 package com.example.demo.models;
 
-
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
-@Builder
+@Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -26,12 +34,12 @@ public class User {
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "author")
+        fetch = FetchType.LAZY,
+        mappedBy = "author")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(name="user_role",joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User(User user) {

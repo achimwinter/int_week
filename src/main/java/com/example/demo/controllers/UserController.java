@@ -1,33 +1,63 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.User;
-import com.example.demo.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.*;
+import lombok.SneakyThrows;
 
-@RestController
-@RequestMapping("/api")
+import com.example.demo.models.User;
+import com.example.demo.services.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Map;
+
+@Controller
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(@PathVariable long userId) {
-        return new ResponseEntity<>("User " + userId + " logged in successfully", HttpStatus.OK);
+    //    @PostMapping(value = "/login")
+    //    public ResponseEntity<String> login(@PathVariable long userId) {
+    //        return new ResponseEntity<>("User " + userId + " logged in successfully", HttpStatus.OK);
+    //    }
+    //
+    //    @PostMapping(value = "/logout")
+    //    public ResponseEntity<String> logout(@PathVariable long userId) {
+    //        return new ResponseEntity<>("User " + userId + " logged out", HttpStatus.OK);
+    //    }
+
+    @GetMapping(value = "/registration")
+    public String getRegistrationView() {
+        return "registration";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public ResponseEntity<String> logout(@PathVariable long userId) {
-        return new ResponseEntity<>("User " + userId + " logged out", HttpStatus.OK);
+    @PostMapping(value = "/registration")
+    public RedirectView createUser(@RequestParam Map<String, String> body) {
+        User user = checkAndCreateUser(body);
+
+        this.userService.saveUser(user);
+        return new RedirectView("/login");
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<Long> registerUser(@RequestBody @NonNull User user) {
-        return ResponseEntity.status(201).body(userRepository.saveAndFlush(user).getId());
+    @SneakyThrows
+    private User checkAndCreateUser(Map<String, String> body) {
+
+        User user = User.builder()
+            .password(new BCryptPasswordEncoder().encode(body.get("password")))
+            .username(body.get("username"))
+            .email(body.get("email"))
+            .build();
+
+        if (user.getPassword().isEmpty() || user.getUsername().isEmpty() || user.getEmail().isEmpty()) {
+            throw new Exception("User was not valid");
+        }
+        return user;
     }
+
 
 }

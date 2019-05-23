@@ -1,12 +1,13 @@
 package com.example.demo.services;
 
+import lombok.val;
+
 import com.example.demo.models.OrderList;
 import com.example.demo.models.User;
 import com.example.demo.repositories.OrderListRepository;
 import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.UserRepository;
 
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,24 +33,24 @@ public class CartService {
         return orderListRepository.getOrderListByUserAndCheckoutIs(user, true);
     }
 
-    public OrderList getOrCreateOrderList(User user){
-        val lst = orderListRepository. getOrderListByUserAndCheckoutIs(user, false);
-        if(lst.isEmpty()){
+    public OrderList getOrCreateOrderList(User user) {
+        val lst = orderListRepository.getOrderListByUserAndCheckoutIs(user, false);
+        if (lst.isEmpty()) {
             return orderListRepository.save(OrderList.builder()
-                    .user(user)
-                    .checkout(false)
-                    .build());
+                .user(user)
+                .checkout(false)
+                .build());
         }
         return lst.get(0);
     }
 
-    public OrderList checkout(OrderList lst){
+    public OrderList checkout(OrderList lst) {
         lst.setCheckout(true);
         orderListRepository.save(lst);
         return lst;
     }
 
-    public OrderList save(OrderList lst){
+    public OrderList save(OrderList lst) {
         orderListRepository.save(lst);
         return lst;
     }
