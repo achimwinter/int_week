@@ -30,7 +30,6 @@ public class Review {
     @Id
     @GeneratedValue
     private Long id;
-    // TODO Entity Dinge tun
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product", nullable = false)

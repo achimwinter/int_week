@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Formula;
-import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(access = AccessLevel.PUBLIC)
-@Indexed
 //@ToString(exclude = "reviews")
 public class Product {
 
