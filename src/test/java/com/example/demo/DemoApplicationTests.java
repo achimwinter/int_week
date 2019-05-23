@@ -186,9 +186,11 @@ public class DemoApplicationTests {
     @Transactional
     @Rollback(value = false)
     public void clearDB(){
+        orderRepository.deleteAll();
+        orderListRepository.deleteAll();
+        reviewRepository.deleteAll();
         productRepository.deleteAll();
         categoryRepository.deleteAll();
-        reviewRepository.deleteAll();
 
 
     }

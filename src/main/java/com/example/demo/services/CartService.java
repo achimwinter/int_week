@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Order;
 import lombok.val;
 
 import com.example.demo.models.OrderList;
@@ -50,8 +51,14 @@ public class CartService {
         return lst;
     }
 
-    public OrderList save(OrderList lst) {
+    public OrderList saveOrderList(OrderList lst) {
         orderListRepository.save(lst);
+        return lst;
+    }
+
+
+    public Order saveOrder(Order lst) {
+        orderRepository.save(lst);
         return lst;
     }
 

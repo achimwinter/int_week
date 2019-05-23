@@ -1,20 +1,16 @@
 package com.example.demo.services;
 
+import lombok.val;
+import lombok.var;
+
 import com.example.demo.models.Category;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.repositories.ProductRepository;
-import com.example.demo.specifications.ProductSpecification;
-import lombok.val;
-import lombok.var;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

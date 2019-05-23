@@ -1,7 +1,5 @@
 package com.example.demo.controllers;
 
-import lombok.Data;
-
 import com.example.demo.services.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +33,4 @@ public class ReviewController {
         return new RedirectView(referer);
     }
 
-}
-
-@Data
-class ReviewRequest {
-    private Long productId;
-    private Long stars;
-    private String note;
-    private Long userId;
 }
