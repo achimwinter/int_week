@@ -45,7 +45,7 @@ public class CartController {
     public RedirectView putInCart(@AuthenticationPrincipal User user, @RequestParam Map<String, String> params, HttpServletRequest request) {
         Long article = Long.parseLong(params.get("articleid"));
         long amount = 1L;
-        if (params.get("amount") != null) {
+        if (params.get("amount") != null || params.get("amount").equals("")) {
             amount = Long.parseLong(params.get("amount"));
         }
 
