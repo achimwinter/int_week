@@ -21,6 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(exclude = "orders")
+@ToString(exclude = "orders")
 public class OrderList {
 
     @Id
