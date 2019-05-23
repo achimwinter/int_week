@@ -69,7 +69,14 @@ public class CartService {
             order.setProduct(product);
         }
 
-        return saveOrder(order);
+        order = saveOrder(order);
+        if(order.getAmount() == 0){
+            deleteOrder(orderList, product);
+            return null;
+        }else {
+            return order;
+        }
+
     }
 
     public boolean deleteOrder(OrderList orderList, Product product){
