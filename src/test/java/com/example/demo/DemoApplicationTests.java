@@ -152,9 +152,9 @@ public class DemoApplicationTests {
 
 
         val r4 = reviewRepository.save(Review.builder()
-                .author(u1)
+                .author(u2)
                 .creationDate(new Date())
-                .product(p1)
+                .product(p3)
                 .content("Tottaly awesome!!! \nI already tried it out in Farming Simulator.")
                 .stars(5L)
                 .build());
