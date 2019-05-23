@@ -33,7 +33,7 @@ public class CartController {
 
     @GetMapping(value = "/cart1")
     public String getCart(User user, Model model) {
-        model.addAttribute("products", cartService.getActiveOrderList(user));
+        model.addAttribute("products", cartService.getOrCreateOrderList(user));
         // TODO:: Place your HTML Filename here
         return "test";
     }
