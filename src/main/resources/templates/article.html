@@ -46,10 +46,20 @@
                         <small class="text-muted" th:text="'Postet by ' + ${rev.getAuthor().getUsername()} + ' on ' + ${rev.getCreationDateAsString()}">Posted by Anonymous on 3/1/17</small>
                         <hr>
                     </div>
-                    <form action="/api/products/review" method="post">
-
-                    </form>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
+                    <div>
+                        <form method="post" action="/api/products/review">
+                            <div class="form-group">
+                                <label for="user">Username</label>
+                                <input type="text" class="form-control" id="user">
+                                <small id="userhelp" class="form-text text-muted">You also can just type Anonymous here.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Write comment for this article.</label>
+                                <textarea class="form-control" id="comment" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!-- /.card -->
