@@ -67,8 +67,8 @@ public class DemoApplicationTests {
 
 
         Category c3 = categoryRepository.getCategoryByName("cars");
-        if(c2 == null){
-            c2 = categoryRepository.save(Category.builder().name("cars").build());
+        if(c3 == null){
+            c3 = categoryRepository.save(Category.builder().name("cars").build());
         }
 
         val p1 = productRepository.save(Product.builder()
@@ -94,7 +94,7 @@ public class DemoApplicationTests {
         System.out.println(p2);
 
         val p3 = productRepository.save(Product.builder()
-                .category(c2)
+                .category(c3)
                 .note("a awesome tool for Agriculture")
                 .reviews(new ArrayList<>())
                 .price(new BigDecimal(348075))
