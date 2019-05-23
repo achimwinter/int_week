@@ -1,22 +1,25 @@
 package com.example.demo.controllers;
 
+import lombok.SneakyThrows;
+
 import com.example.demo.models.User;
-import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
-@RestController
-@RequestMapping("/api")
+import java.util.Map;
+
+@Controller
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     //    @PostMapping(value = "/login")
     //    public ResponseEntity<String> login(@PathVariable long userId) {
@@ -28,9 +31,33 @@ public class UserController {
     //        return new ResponseEntity<>("User " + userId + " logged out", HttpStatus.OK);
     //    }
 
-    @PostMapping(value = "/register")
-    public ResponseEntity<Long> registerUser(@RequestBody @NonNull User user) {
-        return ResponseEntity.status(201).body(userRepository.saveAndFlush(user).getId());
+    @GetMapping(value = "/registration")
+    public String getRegistrationView() {
+        return "registration";
     }
+
+    @PostMapping(value = "/registration")
+    public RedirectView createUser(@RequestParam Map<String, String> body) {
+        User user = checkAndCreateUser(body);
+
+        this.userService.saveUser(user);
+        return new RedirectView("/login");
+    }
+
+    @SneakyThrows
+    private User checkAndCreateUser(Map<String, String> body) {
+
+        User user = User.builder()
+            .password(new BCryptPasswordEncoder().encode(body.get("password")))
+            .username(body.get("username"))
+            .email(body.get("email"))
+            .build();
+
+        if (user.getPassword().isEmpty() || user.getUsername().isEmpty() || user.getEmail().isEmpty()) {
+            throw new Exception("User was not valid");
+        }
+        return user;
+    }
+
 
 }
