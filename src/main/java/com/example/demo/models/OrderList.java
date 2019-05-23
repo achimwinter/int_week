@@ -1,6 +1,10 @@
 package com.example.demo.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -37,10 +41,11 @@ public class OrderList {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private Boolean checkout; // TODO muss das hier evtl noch angepasst werden?
+    private Boolean checkout;
 
     public BigDecimal getTotal(){
-        return orders.stream().map(x->x.getProduct().getPrice().multiply(new BigDecimal(x.getAmount())))
+        return orders.stream()
+            .map(x->x.getProduct().getPrice().multiply(new BigDecimal(x.getAmount())))
                 .reduce(BigDecimal::add).orElse(new BigDecimal(0));
     }
 }
