@@ -44,6 +44,10 @@ public class Product {
         return reviews.stream().mapToDouble(x -> (double)x.getStars()).average().orElse(5.d);
     }
 
+    public Long getAverageScoreRound(){
+        return Math.round(reviews.stream().mapToDouble(x -> (double)x.getStars()).average().orElse(5.d));
+    }
+
     // standard constructors
 
     // standard getters and setters
