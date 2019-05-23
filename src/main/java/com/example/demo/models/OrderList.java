@@ -39,6 +39,7 @@ public class OrderList {
     private Boolean checkout; // TODO muss das hier evtl noch angepasst werden?
 
     public BigDecimal getTotal(){
-        return orders.stream().map(x->x.getProduct().getPrice()).reduce(BigDecimal::add).orElse(new BigDecimal(0));
+        return orders.stream().map(x->x.getProduct().getPrice().multiply(new BigDecimal(x.getAmount())))
+                .reduce(BigDecimal::add).orElse(new BigDecimal(0));
     }
 }
