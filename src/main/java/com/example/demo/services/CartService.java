@@ -12,6 +12,7 @@ import com.example.demo.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -33,6 +34,7 @@ public class CartService {
         if (lst.isEmpty()) {
             return orderListRepository.save(OrderList.builder()
                 .user(user)
+                .orders(new HashSet<>())
                 .checkout(false)
                 .build());
         }
