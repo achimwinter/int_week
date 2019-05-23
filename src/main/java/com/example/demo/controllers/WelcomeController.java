@@ -1,9 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Category;
-import com.example.demo.models.OrderList;
-import com.example.demo.models.Product;
-import com.example.demo.models.User;
+import com.example.demo.models.*;
 import com.example.demo.services.CartService;
 import com.example.demo.services.CategoryService;
 import com.example.demo.services.ProductService;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class WelcomeController {
@@ -96,6 +94,18 @@ public class WelcomeController {
 
         List<Category> allCategories = categoryService.getCategories();
         model.addAttribute("categories", allCategories);
+
+        long amount = 0;
+        if (user != null) {
+            OrderList cart = cartService.getOrCreateOrderList(user);
+            Set<Order> orders = cart.getOrders();
+            Order cartorder = orders.stream().filter(x -> x.getProduct().equals(article)).findAny().orElse(null);
+            if (cartorder != null) amount = cartorder.getAmount();
+        }
+
+        model.addAttribute("amount", amount);
+
+
 
         long userId;
         if (user == null)

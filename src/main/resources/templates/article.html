@@ -27,10 +27,18 @@
                      alt="">
                 <div class="card-body">
                     <h3 class="card-title" th:text="${article.getProductName()}">Product Name</h3>
-                    <form action="/cart1/order" method="post">
-                        <input type="hidden" name="amount" value="1">
+                    <form class="form-row" action="/cart1/order" method="post">
                         <input type="hidden" th:value="${article.getId()}" name="articleid">
-                        <button type="submit" class="btn btn-lg btn-primary" ><span class="glyphicon glyphicon-plus"></span> Add to Cart</button>
+                        <div class="form-group col-5">
+                            <label for="amount">Amount</label>
+                            <input type="number" class="form-control" id="amount" aria-describedby="amount" name="amount" placeholder="1">
+                            <small id="numberhelp" class="form-text text-muted" th:text="'You already have ' + ${amount} + ' items of this in your cart.'">You are not Logged in.</small>
+
+                        </div>
+                        <div class="form-group col-3" style="padding-top: 27px">
+                            <button type="submit" class="btn btn-lg btn-primary" ><span class="glyphicon glyphicon-plus"></span> Add to Cart</button>
+
+                        </div>
                     </form>
                     <h4 th:text="${article.getPrice()} + ' €'">$99.99</h4>
                     <p class="card-text" th:text="${article.getNote()}">LIPSUM?!</p>
