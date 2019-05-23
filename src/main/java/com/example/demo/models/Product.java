@@ -39,15 +39,10 @@ public class Product {
             mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
-    public int getScore(){
-        // TODO Funktion als Durchschnittsscore
 
-        return 4;
+    public Double getAverageScore(){
+        return reviews.stream().mapToDouble(x -> (double)x.getStars()).average().orElse(5.d);
     }
-
-    @Formula("(select avg(o.creation_date) from Reviews r where r.product = id group by r.product)")
-    private Double averageScore;
-
 
     // standard constructors
 
