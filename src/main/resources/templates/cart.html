@@ -37,7 +37,12 @@
                 </td>
                 <td data-th="Subtotal" class="text-center" th:text="(${item.getAmount()} * ${item.getProduct().getPrice()}) + ' €'">99999.99</td>
                 <td class="actions" data-th="">
-                    <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i></button>
+
+                    <form action="/api/cart/order" th:method="DELETE">
+                        <input type="hidden" th:value="${item.getProduct().getId()}" name="articleid">
+                        <input type="hidden" th:value="${item.getAmount()}">
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i></button>
+                    </form>
                 </td>
             </tr>
             </tbody>

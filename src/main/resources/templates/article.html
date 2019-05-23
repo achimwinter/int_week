@@ -27,8 +27,7 @@
                      alt="">
                 <div class="card-body">
                     <h3 class="card-title" th:text="${article.getProductName()}">Product Name</h3>
-                    <form action="/api/cart/order" method="post">
-                        <input type="hidden" name="amount" value="1">
+                    <form class="form-row" action="/api/cart/order" method="post">
                         <input type="hidden" th:value="${article.getId()}" name="articleid">
                         <div class="form-group col-5">
                             <label for="amount">Amount</label>
