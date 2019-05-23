@@ -44,3 +44,7 @@ body {
     table#cart tfoot td .btn{display:block;}
 
 }
+
+.categorylist {
+    padding-top: 50px;
+}

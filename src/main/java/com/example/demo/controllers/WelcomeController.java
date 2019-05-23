@@ -5,6 +5,7 @@ import com.example.demo.models.OrderList;
 import com.example.demo.models.Product;
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.repositories.ProductRepository;
+import com.example.demo.services.CategoryService;
 import com.example.demo.services.ProductService;
 import com.google.common.collect.Lists;
 import lombok.val;
@@ -23,53 +24,38 @@ import java.util.List;
 @Controller
 public class WelcomeController {
 
-//    @Autowired
-//    ProductRepository productRepository;
+    @Autowired
+    ProductService productService;
 
-//    private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
-
-//    @GetMapping("/")
-//    public RedirectView main(Model model) {
-//        return new RedirectView("products");
-//    }
+    @Autowired
+    CategoryService categoryService;
 
 
     @GetMapping("/")
-    public String getProducts1(Model model) {
-        ProductService productService = new ProductService();
-        List<Product> allProducts = productService.list();
-        Product product1 = new Product();
-        Product product2 = new Product();
-        List<Product> proodlist = Arrays.asList(product1, product2);
-
-        model.addAttribute("prods", proodlist);
-
-        return "shop";
+    public RedirectView main(Model model) {
+        return new RedirectView("products");
     }
 
 
     @GetMapping("/products")
     public String getProducts(Model model) {
-        ProductService productService = new ProductService();
         List<Product> allProducts = productService.list();
-        Product product1 = new Product();
-        Product product2 = new Product();
-        List<Product> proodlist = Arrays.asList(product1, product2);
-
-        model.addAttribute("prods", proodlist);
+        model.addAttribute("prods", allProducts);
+        List<Category> allCategories = categoryService.getCategories();
+        model.addAttribute("categories", allCategories);
 
         return "shop";
     }
 
     @GetMapping("/products/{category}")
     public String getCategory(Model model, @PathVariable String category) {
-        //todo get products for given category
-        Product product1 = new Product();
-        Product product2 = new Product();
-        List<Product> categoryProducts = Arrays.asList(product1, product2);
+        Category cat = categoryService.getCategory(category);
+        List<Product> categoryProducts = productService.getProductsForCategory(cat);
         model.addAttribute("prods", categoryProducts);
+        List<Category> allCategories = categoryService.getCategories();
+        model.addAttribute("categories", allCategories);
 
-        return "category";
+        return "shop";
     }
 
 
@@ -82,10 +68,13 @@ public class WelcomeController {
     }
 
     @GetMapping("/article/{id}")
-    public String getSingleArticle(Model model, @PathVariable String id) {
+    public String getSingleArticle(Model model, @PathVariable long id) {
         // todo: get single article and set into model attribute article
-        Product testarticle = new Product();
-        model.addAttribute("article", testarticle);
+        Product article = productService.getByID(id);
+        model.addAttribute("article", article);
+        List<Category> allCategories = categoryService.getCategories();
+        model.addAttribute("categories", allCategories);
+
         return "article";
     }
 
