@@ -1,14 +1,13 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Order;
-import com.example.demo.models.Product;
 import lombok.val;
 
+import com.example.demo.models.Order;
 import com.example.demo.models.OrderList;
+import com.example.demo.models.Product;
 import com.example.demo.models.User;
 import com.example.demo.repositories.OrderListRepository;
 import com.example.demo.repositories.OrderRepository;
-import com.example.demo.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +19,6 @@ public class CartService {
 
     @Autowired
     private OrderRepository orderRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private OrderListRepository orderListRepository;
