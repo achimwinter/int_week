@@ -5,6 +5,7 @@ import com.example.demo.models.Product;
 import com.example.demo.models.Review;
 import com.example.demo.models.User;
 import com.example.demo.repositories.*;
+import com.example.demo.services.ProductService;
 import lombok.val;
 import lombok.var;
 import org.junit.Test;
@@ -18,13 +19,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@DataJpaTest
 public class DemoApplicationTests {
 
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -115,6 +118,14 @@ public class DemoApplicationTests {
                 .username("achim_winter")
                 .build());
 
+        val u3 = userRepository.save(User.builder()
+                .email("anonymous@hack-your-world.com")
+                .password("1337")
+                .username("anonymous")
+                .id(-1L)
+                .build());
+
+
         val r1 = reviewRepository.save(Review.builder()
                 .author(u1)
                 .creationDate(new Date())
@@ -173,11 +184,29 @@ public class DemoApplicationTests {
 
     @Test
     @Transactional
+    @Rollback(value = false)
     public void clearDB(){
         productRepository.deleteAll();
         categoryRepository.deleteAll();
+        reviewRepository.deleteAll();
 
 
+    }
+
+    @Test
+    @Transactional
+    public void searchTest(){
+        var res = productService.search("horse");
+        System.out.println("horse: " + Arrays.toString(res.stream().map(Product::getProductName).toArray()));
+
+        res = productService.search("");
+        System.out.println(": " + Arrays.toString(res.stream().map(Product::getProductName).toArray()));
+
+        res = productService.search("Horse");
+        System.out.println("Horse: " + Arrays.toString(res.stream().map(Product::getProductName).toArray()));
+
+        res = productService.search("animals");
+        System.out.println("animals: " + Arrays.toString(res.stream().map(Product::getProductName).toArray()));
     }
 
 }

@@ -17,7 +17,6 @@ public class Review {
     @Id
     @GeneratedValue
     private Long id;
-    // TODO Entity Dinge tun
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product", nullable = false)
@@ -34,10 +33,4 @@ public class Review {
     private java.util.Date creationDate;
 
     private Long stars; // from 1-5 stars
-
-    public String getCreationDateAsString(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(creationDate);
-        return strDate;
-    }
 }
