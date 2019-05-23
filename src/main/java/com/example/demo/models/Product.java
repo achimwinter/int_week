@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(access = AccessLevel.PUBLIC)
+@Indexed
 //@ToString(exclude = "reviews")
 public class Product {
 
@@ -41,6 +44,10 @@ public class Product {
 
         return 4;
     }
+
+    @Formula("(select avg(o.creation_date) from Reviews r where r.product = id group by r.product)")
+    private Double averageScore;
+
 
     // standard constructors
 
