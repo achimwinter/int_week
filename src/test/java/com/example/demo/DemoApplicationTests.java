@@ -62,6 +62,12 @@ public class DemoApplicationTests {
             c2 = categoryRepository.save(Category.builder().name("animals").build());
         }
 
+
+        Category c3 = categoryRepository.getCategoryByName("cars");
+        if(c2 == null){
+            c2 = categoryRepository.save(Category.builder().name("cars").build());
+        }
+
         val p1 = productRepository.save(Product.builder()
                 .category(c1)
                 .note("This is a Book")
@@ -83,12 +89,30 @@ public class DemoApplicationTests {
                 .productName("Horse")
                 .build());
         System.out.println(p2);
+
+        val p3 = productRepository.save(Product.builder()
+                .category(c2)
+                .note("a awesome tool for Agriculture")
+                .reviews(new ArrayList<>())
+                .price(new BigDecimal(348075))
+                .imagepath("https://www.fendt.com/de/images/57022e380237fb0f14112f53_1459760702_web_de-DE.jpg")
+                .stock(1L)
+                .productName("Fendt 1000 Vario")
+                .build());
+        System.out.println(p3);
+
         System.out.println(productRepository.count());
 
         val u1 = userRepository.save(User.builder()
                 .email("john.doe@example.com")
                 .password("hunter2")
                 .username("john_doe")
+                .build());
+
+        val u2 = userRepository.save(User.builder()
+                .email("achim.winter@gmail.com")
+                .password("1906")
+                .username("achim_winter")
                 .build());
 
         val r1 = reviewRepository.save(Review.builder()
@@ -114,6 +138,16 @@ public class DemoApplicationTests {
                 .content("Now I can start horsing around!")
                 .stars(3L)
                 .build());
+
+
+        val r4 = reviewRepository.save(Review.builder()
+                .author(u1)
+                .creationDate(new Date())
+                .product(p1)
+                .content("Tottaly awesome!!! \nI already tried it out in Farming Simulator.")
+                .stars(5L)
+                .build());
+
 
         categoryRepository.flush();
         productRepository.flush();
