@@ -1,10 +1,6 @@
 package com.example.demo.models;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,6 +20,8 @@ import java.util.Set;
 @Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "reviews")
+@ToString(exclude = "reviews")
 public class User {
 
     @Id

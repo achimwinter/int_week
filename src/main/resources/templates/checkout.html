@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head (achtive='products')}">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<!--<nav th:replace="~{fragments/nav :: navbar}"></nav>-->
+
+<!-- Page Content -->
+<div class="container">
+    <div class="alert alert-success" role="alert">
+        Thank you for your Order!
+    </div>
+    <a class="btn btn-block btn-primary" href="/products"><span class="glyphicon glyphicon-chevron-left"></span> Back to Products</a>
+</div>
+<!-- /.container -->
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<div th:replace="~{fragments/footer :: scripts}"></div>
+
+</body>
+
+</html>

@@ -1,25 +1,30 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Order;
 import com.example.demo.models.OrderList;
 import com.example.demo.models.Product;
 import com.example.demo.models.User;
 import com.example.demo.services.CartService;
-
 import com.example.demo.services.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Map;
 
 @RestController
-@RequestMapping("/cart1")
+@RequestMapping("/api/cart")
 //TODO URL aendern
 public class CartController {
 
@@ -28,15 +33,6 @@ public class CartController {
 
     @Autowired
     private ProductService productService;
-
-
-
-    @GetMapping(value = "/cart1")
-    public String getCart(User user, Model model) {
-        model.addAttribute("products", cartService.getActiveOrderList(user));
-        // TODO:: Place your HTML Filename here
-        return "test";
-    }
 
     @GetMapping(value = "/orderlist")
     public String getCompletedOrders(User user, Model model) {

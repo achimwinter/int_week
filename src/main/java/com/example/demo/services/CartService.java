@@ -1,18 +1,18 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Order;
-import com.example.demo.models.Product;
 import lombok.val;
 
+import com.example.demo.models.Order;
 import com.example.demo.models.OrderList;
+import com.example.demo.models.Product;
 import com.example.demo.models.User;
 import com.example.demo.repositories.OrderListRepository;
 import com.example.demo.repositories.OrderRepository;
-import com.example.demo.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -22,14 +22,8 @@ public class CartService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private OrderListRepository orderListRepository;
 
-    public OrderList getActiveOrderList(User user) {
-        return orderListRepository.getOrderListByUserAndCheckoutIs(user, false).get(0);
-    }
 
     public List<OrderList> getCompletedOrders(User user) {
         return orderListRepository.getOrderListByUserAndCheckoutIs(user, true);
@@ -40,6 +34,7 @@ public class CartService {
         if (lst.isEmpty()) {
             return orderListRepository.save(OrderList.builder()
                 .user(user)
+                .orders(new HashSet<>())
                 .checkout(false)
                 .build());
         }

@@ -21,12 +21,20 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         Optional<User> optionalUser = usersRepository.findByUsername(userName);
-        return Optional.ofNullable(optionalUser).orElseThrow(() -> new UsernameNotFoundException("Username Not Found"))
-            .map(UserDetailsImpl::new).get();
+        if (optionalUser.isPresent()) {
+            return new UserDetailsImpl(optionalUser.get());
+        } else {
+            throw new UsernameNotFoundException(String.format("User %s", userName));
+        }
     }
 
     public void saveUser(User user) {
         usersRepository.save(user);
+    }
+
+    public boolean checkIfUserExists(String username) {
+        return usersRepository.findByUsername(username).isPresent();
+
     }
 }
 

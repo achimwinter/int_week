@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(access = AccessLevel.PUBLIC)
-//@ToString(exclude = "reviews")
+@ToString(exclude = "reviews")
 public class Product {
 
     @Id
@@ -27,7 +27,7 @@ public class Product {
 
     @ManyToOne
     private Category category;
-    private String imagepath; // TODO in ressources einfach images ablegen
+    private String imagepath;
     private BigDecimal price;
     private Long stock;
     private String note;
