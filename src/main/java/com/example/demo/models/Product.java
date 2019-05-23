@@ -1,25 +1,17 @@
 package com.example.demo.models;
 
-import lombok.AccessLevel;
+import lombok.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import org.hibernate.annotations.Formula;
 import org.hibernate.search.annotations.Indexed;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Data
@@ -43,18 +35,14 @@ public class Product {
     private String note;
 
     @OneToMany(cascade = CascadeType.ALL,
-        fetch = FetchType.LAZY,
-        mappedBy = "product")
+            fetch = FetchType.LAZY,
+            mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
-    public int getScore() {
-        // TODO Funktion als Durchschnittsscore
 
-        return 4;
+    public Double getAverageScore(){
+        return reviews.stream().mapToDouble(x -> (double)x.getStars()).average().orElse(5.d);
     }
-
-    @Formula("(select avg(o.creation_date) from Reviews r where r.product = id group by r.product)")
-    private Double averageScore;
 
     // standard constructors
 
