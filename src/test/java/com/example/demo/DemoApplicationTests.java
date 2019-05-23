@@ -95,7 +95,7 @@ public class DemoApplicationTests {
 
         val p3 = productRepository.save(Product.builder()
                 .category(c3)
-                .note("a awesome tool for Agriculture")
+                .note("A awesome tool for Agriculture")
                 .reviews(new ArrayList<>())
                 .price(new BigDecimal(348075))
                 .imagepath("https://www.fendt.com/de/images/57022e380237fb0f14112f53_1459760702_web_de-DE.jpg")
@@ -103,6 +103,40 @@ public class DemoApplicationTests {
                 .productName("Fendt 1000 Vario")
                 .build());
         System.out.println(p3);
+
+        val p4 = productRepository.save(Product.builder()
+                .category(c2)
+                .note("A sweet little cat!")
+                .reviews(new ArrayList<>())
+                .price(new BigDecimal(80))
+                .imagepath("https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwNC84MTkvb3JpZ2luYWwvY3V0ZS1raXR0ZW4uanBn")
+                .stock(5L)
+                .productName("Kitten")
+                .build());
+        System.out.println(p4);
+
+
+        val p5 = productRepository.save(Product.builder()
+                .category(c1)
+                .note("A pretty good notebook")
+                .reviews(new ArrayList<>())
+                .price(new BigDecimal(999))
+                .imagepath("https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c06017872.png")
+                .stock(20L)
+                .productName("Notebook")
+                .build());
+        System.out.println(p5);
+
+        val p6 = productRepository.save(Product.builder()
+                .category(c3)
+                .note("A pretty fast car!")
+                .reviews(new ArrayList<>())
+                .price(new BigDecimal(89489))
+                .imagepath("https://www.autoblog.com/img/research/styles/photos/performance.jpg")
+                .stock(4L)
+                .productName("sports car")
+                .build());
+        System.out.println(p6);
 
         System.out.println(productRepository.count());
 
