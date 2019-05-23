@@ -72,8 +72,9 @@
                             </div>
                             <div class="card-footer">
                                 <small class="text-muted"
-                                       th:replace="fragments/stars :: stars(score=${product.getScore()})">&#9733;
+                                       th:replace="fragments/stars :: stars(score=${product.getAverageScoreRound()})">&#9733;
                                     &#9733; &#9733; &#9733; &#9734;
+                                    <!-- todo: get score-->
                                 </small>
                             </div>
                         </div>

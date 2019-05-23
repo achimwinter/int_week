@@ -30,8 +30,8 @@
                     <h4 th:text="${article.getPrice()}">$99.99</h4>
                     <p class="card-text" th:text="${article.getNote()}">LIPSUM?!</p>
 
-                    <span th:replace="fragments/stars :: stars(score=${article.getScore()})" class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                    4.0 stars
+                    <span th:replace="fragments/stars :: stars(score=${article.getAverageScoreRound()})" class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                    <p th:text="${#numbers.formatDecimal(article.getAverageScore(), 0, 'COMMA', 2, 'POINT')} + ' Stars!'"></p>
                 </div>
             </div>
             <!-- /.card -->
@@ -48,15 +48,13 @@
                     </div>
                     <div>
                         <form method="post" action="/api/products/review">
-                            <div class="form-group">
-                                <label for="user">Username</label>
-                                <input type="text" class="form-control" id="user">
-                                <small id="userhelp" class="form-text text-muted">You also can just type Anonymous here.</small>
-                            </div>
+                            <input type="hidden" class="form-control" name="userId" th:value="${activeuserid}">
+                            <input type="hidden" class="form-control" name="productId" th:value="${article.getId()}">
                             <div class="form-group">
                                 <label for="comment">Write comment for this article.</label>
-                                <textarea class="form-control" id="comment" rows="3"></textarea>
+                                <textarea class="form-control" id="comment" rows="3" name="note"></textarea>
                             </div>
+<!--                            todo: starinput-->
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
