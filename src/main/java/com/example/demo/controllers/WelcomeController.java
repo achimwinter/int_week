@@ -66,6 +66,13 @@ public class WelcomeController {
         return "cart";
     }
 
+    @GetMapping("/profile")
+    public String getProfile(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute("activeuser", user);
+
+        return "profile";
+    }
+
     @GetMapping("/article/{id}")
     public String getSingleArticle(Model model, @PathVariable long id, @AuthenticationPrincipal User user) {
         Product article = productService.getByID(id);
