@@ -47,14 +47,36 @@
                         <hr>
                     </div>
                     <div>
-                        <form method="post" action="/api/products/review">
+                        <form method="post" action="/api/review">
                             <input type="hidden" class="form-control" name="userId" th:value="${activeuserid}">
                             <input type="hidden" class="form-control" name="productId" th:value="${article.getId()}">
+                            <input type="hidden" class="form-control" name="stars" id="ratingstars" value="5">
                             <div class="form-group">
                                 <label for="comment">Write comment for this article.</label>
                                 <textarea class="form-control" id="comment" rows="3" name="note"></textarea>
                             </div>
-<!--                            todo: starinput-->
+                            <div class="form-group">
+                                <!-- Rating Stars Box -->
+                                <div class='rating-stars text-center'>
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
