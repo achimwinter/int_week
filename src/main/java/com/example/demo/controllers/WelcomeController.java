@@ -60,7 +60,8 @@ public class WelcomeController {
 
     @GetMapping("/cart")
     public String getCart(Model model, @AuthenticationPrincipal User user) {
-        OrderList cart = cartService.getActiveOrderList(user);
+
+        OrderList cart = cartService.getOrCreateOrderList(user);
         model.addAttribute("cart", cart);
 
         return "cart";

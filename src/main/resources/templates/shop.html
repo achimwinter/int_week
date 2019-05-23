@@ -14,6 +14,7 @@
 
         <div class="col-lg-3">
             <div class="list-group categorylist">
+                <a href="/products" class="list-group-item">ALL</a>
                 <a th:each="category : ${categories}" th:href="@{'/products/' + ${category.getName()}}"
                    class="list-group-item" th:text="${category.getName().toUpperCase()}"></a>
             </div>
@@ -68,7 +69,7 @@
                                        th:text="${product.getProductName()}">Item
                                         One</a>
                                 </h4>
-                                <h5 th:text="${product.getPrice()}">$99.99</h5>
+                                <h5 th:text="${product.getPrice()} + ' €'">$99.99</h5>
                             </div>
                             <div class="card-footer">
                                 <small class="text-muted"

@@ -27,7 +27,12 @@
                      alt="">
                 <div class="card-body">
                     <h3 class="card-title" th:text="${article.getProductName()}">Product Name</h3>
-                    <h4 th:text="${article.getPrice()}">$99.99</h4>
+                    <form action="/cart1/order" method="post">
+                        <input type="hidden" name="amount" value="1">
+                        <input type="hidden" th:value="${article.getId()}" name="articleid">
+                        <button type="submit" class="btn btn-lg btn-primary" ><span class="glyphicon glyphicon-plus"></span> Add to Cart</button>
+                    </form>
+                    <h4 th:text="${article.getPrice()} + ' €'">$99.99</h4>
                     <p class="card-text" th:text="${article.getNote()}">LIPSUM?!</p>
 
                     <span th:replace="fragments/stars :: stars(score=${article.getAverageScoreRound()})" class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
