@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ProductController {
@@ -42,7 +43,7 @@ public class ProductController {
     @GetMapping("/products/{category}")
     public String getCategory(Model model, @PathVariable String category) {
         Category cat = categoryService.getCategory(category);
-        List<Product> categoryProducts = productService.getProductsForCategory(cat);
+        Set<Product> categoryProducts = cat.getProducts();
         model.addAttribute("prods", categoryProducts);
         List<Category> allCategories = categoryService.getCategories();
         model.addAttribute("categories", allCategories);
