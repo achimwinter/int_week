@@ -49,7 +49,7 @@ public class Product {
     }
 
     public Long getAverageScoreRound() {
-        return Math.round(reviews.stream().mapToDouble(x -> (double) x.getStars()).average().orElse(5.d));
+        return Math.round(getAverageScore());
     }
 
 }
