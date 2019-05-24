@@ -1,16 +1,23 @@
 package com.example.demo.models;
 
-import lombok.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 @Data
@@ -33,20 +40,16 @@ public class Product {
     private String note;
 
     @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "product")
+        fetch = FetchType.LAZY,
+        mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
-
-    public Double getAverageScore(){
-        return reviews.stream().mapToDouble(x -> (double)x.getStars()).average().orElse(5.d);
+    public Double getAverageScore() {
+        return reviews.stream().mapToDouble(x -> (double) x.getStars()).average().orElse(5.d);
     }
 
-    public Long getAverageScoreRound(){
-        return Math.round(reviews.stream().mapToDouble(x -> (double)x.getStars()).average().orElse(5.d));
+    public Long getAverageScoreRound() {
+        return Math.round(reviews.stream().mapToDouble(x -> (double) x.getStars()).average().orElse(5.d));
     }
 
-    // standard constructors
-
-    // standard getters and setters
 }

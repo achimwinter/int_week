@@ -10,7 +10,6 @@ import com.example.demo.services.CategoryService;
 import com.example.demo.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -40,7 +38,6 @@ public class CartController {
     @Autowired
     private CategoryService categoryService;
 
-
     @GetMapping("/cart")
     public String getCart(Model model, @AuthenticationPrincipal User user) {
         OrderList cart = cartService.getOrCreateOrderList(user);
@@ -55,15 +52,12 @@ public class CartController {
         return "checkout";
     }
 
-    @GetMapping(value = "/api/cart/orderlist")
-    public String getCompletedOrders(User user, Model model) {
-        model.addAttribute("completedOrders", cartService.getCompletedOrders(user));
-        // TODO:: Place your HTML Filename here
-        return "";
-    }
-
     @PostMapping("/api/cart/order")
-    public RedirectView putInCart(@AuthenticationPrincipal User user, @RequestParam Map<String, String> params, HttpServletRequest request) {
+    public RedirectView putInCart(
+        @AuthenticationPrincipal User user,
+        @RequestParam Map<String, String> params,
+        HttpServletRequest request
+    ) {
         Long article = Long.parseLong(params.get("articleid"));
         long amount = 1L;
         if (params.get("amount") != null || params.get("amount").equals("")) {
@@ -91,7 +85,8 @@ public class CartController {
             OrderList cart = cartService.getOrCreateOrderList(user);
             Set<Order> orders = cart.getOrders();
             Order cartorder = orders.stream().filter(x -> x.getProduct().equals(article)).findAny().orElse(null);
-            if (cartorder != null) amount = cartorder.getAmount();
+            if (cartorder != null)
+                amount = cartorder.getAmount();
         }
 
         model.addAttribute("amount", amount);
@@ -107,7 +102,11 @@ public class CartController {
     }
 
     @DeleteMapping("/api/cart/order")
-    public RedirectView deleteInCart(@AuthenticationPrincipal User user, @RequestParam Map<String, String> params, HttpServletRequest request) {
+    public RedirectView deleteInCart(
+        @AuthenticationPrincipal User user,
+        @RequestParam Map<String, String> params,
+        HttpServletRequest request
+    ) {
         Long article = Long.parseLong(params.get("articleid"));
 
         Product product = productService.getByID(article);
@@ -116,20 +115,5 @@ public class CartController {
         cartService.deleteOrder(activecart, product);
 
         return new RedirectView(request.getHeader("Referer"));
-    }
-
-    @PutMapping(value = "/api/cart")
-    public Object addProduct() {
-        return null;
-    }
-
-    @DeleteMapping(value = "/api/cart")
-    public Object removeProduct() {
-        return null;
-    }
-
-    @PutMapping(value = "/api/cart/product/amount")
-    public ResponseEntity changeProductAmount() {
-        return ResponseEntity.ok().build();
     }
 }

@@ -49,7 +49,6 @@ public class Review {
 
     public String getCreationDateAsString() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(creationDate);
-        return strDate;
+        return dateFormat.format(creationDate);
     }
 }

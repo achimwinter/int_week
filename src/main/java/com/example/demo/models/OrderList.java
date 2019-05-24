@@ -1,6 +1,11 @@
 package com.example.demo.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,9 +44,9 @@ public class OrderList {
 
     private Boolean checkout;
 
-    public BigDecimal getTotal(){
+    public BigDecimal getTotal() {
         return orders.stream()
-            .map(x->x.getProduct().getPrice().multiply(new BigDecimal(x.getAmount())))
-                .reduce(BigDecimal::add).orElse(new BigDecimal(0));
+            .map(x -> x.getProduct().getPrice().multiply(new BigDecimal(x.getAmount())))
+            .reduce(BigDecimal::add).orElse(new BigDecimal(0));
     }
 }

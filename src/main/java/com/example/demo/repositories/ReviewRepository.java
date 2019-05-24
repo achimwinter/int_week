@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    List<Review> getReviewsByAuthorAndProduct(User author, Product product);
 
     List<Review> getReviewsByProduct(Product product);
 
