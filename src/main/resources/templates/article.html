@@ -15,7 +15,6 @@
         <div class="col-lg-3">
             <div class="list-group categorylist">
                 <a th:each="category : ${categories}" th:href="@{'/products/' + ${category.getName()}}"></a>
-
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -31,7 +30,7 @@
                         <input type="hidden" th:value="${article.getId()}" name="articleid">
                         <div class="form-group col-5">
                             <label for="amount">Amount</label>
-                            <input type="number" class="form-control" id="amount" aria-describedby="amount" name="amount" placeholder="1">
+                            <input type="number" class="form-control" id="amount" aria-describedby="amount" name="amount" value="1">
                             <small id="numberhelp" class="form-text text-muted" th:text="'You already have ' + ${amount} + ' items of this in your cart.'">You are not Logged in.</small>
 
                         </div>
