@@ -37,6 +37,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
             .antMatchers("/cart").authenticated()
             .antMatchers("/profile").authenticated()
             .antMatchers("/api/cart/order").authenticated()
+            .antMatchers("/api/review").authenticated()
             .and()
             .formLogin()
             .permitAll()

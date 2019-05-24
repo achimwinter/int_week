@@ -33,7 +33,7 @@
                 </td>
                 <td data-th="Price" th:text="${item.getProduct().getPrice()} + ' €'">$99.99</td>
                 <td data-th="Quantity">
-                    <input type="number" class="form-control text-center" th:value="${item.getAmount()}" value="-1">
+                    <input type="number" class="form-control text-center" th:value="${item.getAmount()}" value="-1" disabled>
                 </td>
                 <td data-th="Subtotal" class="text-center" th:text="(${item.getAmount()} * ${item.getProduct().getPrice()}) + ' €'">99999.99</td>
                 <td class="actions" data-th="">
